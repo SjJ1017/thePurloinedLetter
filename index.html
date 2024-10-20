@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>生成柔和方块</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet"> 
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+
+  <style>
+    p {
+    font-family: 'QuickSand', cursive;;
+    font-size: 16px;                 
+    line-height: 1.5;               
+    color: #333;                     
+    margin: 10px 0;                  
+    padding: 5px;                    
+}
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f8f5f2;
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      height: 90vh;
+    }
+
+    .container {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 0;
+      position: relative;
+    }
+
+    .box {
+      width: 60px;
+      height: 60px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: white;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .box:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .button-container {
+
+  margin-top: auto;
+  margin-bottom: 0;
+}
+
+    button {
+        font-family: 'QuickSand', cursive;;
+      padding: 10px 20px;
+      background-color: #d7a9a3;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      color: #fff;
+      font-size: 16px;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #b9867a;
+    }
+
+    button:disabled {
+      background-color: #ddd;
+      cursor: not-allowed;
+    }
+
+    .brandy-red {
+      background-color: #e8b4a8;
+    }
+
+    .brandy-green {
+      background-color: #b8d0b2;
+    }
+
+    .gray {
+      background-color: #d3d3d3;
+      color: black;
+    }
+
+    .gray-container {
+      position: absolute;
+      top: 70px; 
+      left: 0;
+      width: 100%;
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .content {
+        white-space: pre-line;  
+    }
+    .greek-container {
+      position: absolute;
+      top: 70px;  
+      left: 0;
+      width: 100%;
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+    
+    }
+    .passages {
+    width: 50%;       
+    height: 300px;  
+    margin: 0 auto;  
+    overflow: auto;   
+    border: 0px solid #ccc; 
+    padding: 10px;    
+    box-sizing: border-box;  
+}
+
+    .title {
+            font-family: 'Pacifico', cursive;
+            font-size: 4rem; 
+            color: black; 
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); 
+        }
+  </style>
+</head>
+<body>
+
+
+ <div class="title" id="pageTitle">The Purloined Letter</div>
+  <div class="container" id="boxContainer"></div>
+  <div class="gray-container" id="grayContainer"></div>
+  <div class="greek-container" id="greekContainer"></div>
+
+  <div class="button-container">
+    <button id="generateButton" onclick="generateInitialBoxes()">Try generating a random symbol</button>
+    <button id="grayButton" style="display: none;" onclick="generateGrayBoxes()">Group +'s and -'s</button>
+    <button id="greekButton" style="display: none;" onclick="generateGreekBoxes()">Group number pairs</button>
+  </div>
+
+  <div class="passages">
+    <p  id="1" style="display: none;">Anything from the real can always come out. But once the symbolic chain is constituted, as soon as you introduce a certain significant unity, in the form of unities of succession. what comes out can no longer be just anything. Let us agree to group the +'s and the -'s which may come up into threes. and to call the sequences 1, 2 or 3, according to which type they belong:
+    <br>
+    <br>
+        (- - -) (+ + +) ------------------------------> 1 (identical)
+    <br>
+        (+ + -) (- - +) (+ - +) (- + -) -------------->  2 
+    <br>
+        (- + -) (- + -) ------------------------------> 3 (alternating)
+    </p>
+
+    <p id = "2" style="display: none;">This transformation alone gives rise to extremely precise laws. The 1s, the 2s, and the 3s cannot succeed each other in just any order. A 1 will never be able to follow a 3. A 1 will never come after any odd-numbered sequence of 2s. But after an even number of 2s, a 1 is possible. An indefinite number of 2s is always possible between a 1 and a 3.</p>
+
+    <p id = "3" style="display: none;">Starting with this, you can constitute other significant unities, representing the intervals between two of these groups:
+    <br>
+    <br>
+    1,1 or 1,3 ----> α
+    <br>
+    1,2 ----------> β
+     <br>
+    2,2 ----------> γ 
+      <br>
+    2,1 or 2,3 ---> δ
+    </p>
+
+    <p id = "4" style="display: none;">You can verify that after the repetition of a great number of α's, if there'd been a β before, only a δ could follow. So this is a primitive symbolic organization that already enables one to go beyond the memory internal to the symbol. In some way, the series of α's remembers that it cannot express anything but a δ if a β, however far away it might have been, occurred before the series of α's.</p>
+
+    <p id = "5" style="display: none;">--Lacan, Jacques. "The Purloined Letter." <b>In The Ego in Freud's Theory and in the Technique of Psychoanalysis</b></p>
+</div>
+
+
+
+  <script>
+    let boxCount = 0; 
+    let grayCount = 0; 
+    let k = 15
+    function generateInitialBoxes() {
+      if (boxCount >= k) return;
+
+      const box = document.createElement('div');
+      box.classList.add('box');
+    let random = Math.random();
+      const colorClass = random > 0.5 ? 'brandy-red' : 'brandy-green';
+      box.classList.add(colorClass);
+      box.textContent = random > 0.5 ? '-' : '+';
+
+      document.getElementById('boxContainer').appendChild(box);
+      boxCount++;
+
+
+      if (boxCount === k) {
+        document.getElementById('generateButton').style.display = 'none';
+        document.getElementById('grayButton').style.display = 'inline-block';
+        document.getElementById('1').style.display = 'block';
+      }
+    }
+
+    function alignBoxWithChild(i, number, new_container, old_container) {
+    const newContainer = document.getElementById(new_container);
+    const targetContainer = document.getElementById(old_container);
+    const targetChild = targetContainer.children[i]; 
+
+
+    if (targetChild) {
+        const grayBox = document.createElement('div');
+        grayBox.classList.add('box', 'gray');
+        grayBox.textContent = number; 
+
+   
+        const rect = targetChild.getBoundingClientRect();
+
+
+        grayBox.style.position = 'absolute'; 
+        grayBox.style.top = `${rect.top}px`;
+        grayBox.style.left = `${rect.left}px`;
+
+
+        newContainer.appendChild(grayBox);
+    } else {
+        console.error(`未找到第 ${i} 个子元素`);
+    }
+        }
+
+    function generateGrayBoxes() {
+    const boxes = Array.from(document.querySelectorAll('.box'));
+    const grayContainer = document.getElementById('grayContainer');
+    const childCount = grayContainer.childElementCount;
+
+    if (childCount >= k-7){
+        document.getElementById('1').style.display = 'none';
+        document.getElementById('2').style.display = 'inline-block';
+    }
+
+    if (childCount >= k-3){ 
+        document.getElementById('grayButton').style.display = 'none';
+        document.getElementById('greekButton').style.display = 'inline-block';
+        document.getElementById('2').style.display = 'none';
+        document.getElementById('3').style.display = 'inline-block';
+        }
+
+        const triplet = boxes.slice(childCount, childCount + 3);
+        const number = calculateNumber(triplet);
+
+        alignBoxWithChild(childCount + 2, number, 'grayContainer', 'boxContainer');
+
+
+        return; 
+
+      }
+
+    function generateGreekBoxes() {
+    const grayBoxes = Array.from(document.querySelectorAll('.gray'));
+    const greekContainer = document.getElementById('greekContainer');
+    const greekchildCount = greekContainer.childElementCount;
+
+    const pair = grayBoxes.slice(greekchildCount, greekchildCount + 2);
+    const letter = calculateGreekLetter(pair);
+
+    alignBoxWithChild(greekchildCount + 1, letter, 'greekContainer', 'grayContainer');
+    if (greekchildCount >= k-4) {
+        document.getElementById('greekButton').style.display = 'none';
+
+        document.getElementById('3').style.display = 'none';
+        document.getElementById('4').style.display = 'inline-block';
+        document.getElementById('5').style.display = 'inline-block';
+        return;
+    }
+    }
+
+    function calculateNumber(triplet) {
+
+      const colors = triplet.map(box => box.classList.contains('brandy-red') ? 'red' : 'green');
+
+      if (colors.every(color => color === colors[0])) {
+        return 1;  
+      } else if ((colors[0] !== colors[1]) && (colors[0] === colors[2])) {
+        return 3;  
+      } else {
+        return 2;  
+      }
+    }
+    function calculateGreekLetter(pair) {
+        //  1,1 or 1,3 -> α, 1,2 -> β,  2,2 -> γ, 2,1 or 2,3 -> δ
+        const numbers = pair.map(box => box.textContent);
+        if (numbers[0] === '1' && numbers[1] === '1') {
+            return 'α';
+        } else if (numbers[0] === '1' && numbers[1] === '3') {
+            return 'α';
+        } else if (numbers[0] === '1' && numbers[1] === '2') {
+            return 'β';
+        } else if (numbers[0] === '2' && numbers[1] === '2') {
+            return 'γ';
+        } else {
+            return 'δ';
+        }
+    }
+  </script>
+
+</body>
+</html>
